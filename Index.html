@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Production-Ready Internship Portal</title>
+    <style>
+        /* मोबाइल-फ्रेंडली रिस्पॉन्सिव डिजाइन */
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; background-color: #f4f7f6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: #4A90E2; font-size: 24px; text-align: center; }
+        .btn { display: block; width: 100%; padding: 12px; background-color: #4A90E2; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; text-align: center; text-decoration: none; box-sizing: border-box; }
+        .btn:hover { background-color: #357ABD; }
+        .status-box { background: #eef9f3; border-left: 5px solid #2ecc71; padding: 10px; margin: 15px 0; border-radius: 4px; font-size: 14px; }
+        .card { border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 5px; background: #fafafa; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Polished Internship Portal</h1>
+    <p style="text-align: center;">Welcome to your production-ready workspace.</p>
+    
+    <!-- सर्वर हेल्थ स्टेटस दिखाने की जगह -->
+    <div class="status-box" id="health-status">Checking System Health...</div>
+
+    <button class="btn" onclick="checkHealth()">Live Health Check Run</button>
+
+    <div id="data-list">
+        <h3>Available Openings:</h3>
+        <div class="card"><strong>Full-Stack Developer</strong> at EdVyro Tech (6 Months)</div>
+    </div>
+</div>
+
+<script>
+    // हेल्थ चेक API को कॉल करने का फंक्शन
+    async function checkHealth() {
+        const statusBox = document.getElementById('health-status');
+        try {
+            // नोट: लोकल होस्ट पर चलाने के लिए, डिप्लॉय करने के बाद इसे लाइव लिंक से बदलें
+            const res = await fetch('http://localhost:5000/health');
+            const data = await res.json();
+            statusBox.innerHTML = `<strong>System Status:</strong> ${data.status} | <strong>Uptime:</strong> ${data.uptime}`;
+            statusBox.style.borderLeftColor = "#2ecc71";
+        } catch (err) {
+            statusBox.innerHTML = `<strong>System Status:</strong> OFFLINE (Start your server.js)`;
+            statusBox.style.borderLeftColor = "#e74c3c";
+        }
+    }
+    // पेज लोड होते ही रन करें
+    checkHealth();
+</script>
+</body>
+</html>
